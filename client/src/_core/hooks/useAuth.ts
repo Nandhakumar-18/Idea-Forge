@@ -47,6 +47,7 @@ export function useAuth(options?: UseAuthOptions) {
       } catch {}
       utils.auth.me.setData(undefined, null);
       await utils.auth.me.invalidate();
+      window.location.href = "/events";
     }
   }, [logoutMutation, utils]);
 
