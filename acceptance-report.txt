@@ -1,0 +1,14 @@
+Acceptance Report - IdeaForge
+
+Tiers Completed:
+[X] T1 - Core
+[X] T2 - Judging
+[ ] T3 - Public
+[ ] T4 - Stretch
+
+Notes:
+- The platform fully implements the T1 core requirements including Auth, Roles, Events, and Submissions.
+- The platform implements T2 judging endpoints as verified by the dogfood checking tool.
+- Role isolation is strictly enforced at the API layer.
+- The seeded environment automatically populates on docker-compose up.
+- All testing and runtime bugs have been resolved successfully.

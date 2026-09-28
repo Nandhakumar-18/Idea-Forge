@@ -1,0 +1,16 @@
+[portal]
+base_url = "http://localhost:8080"
+[tiers]
+claimed = ["T1", "T2"]
+pitch = "IdeaForge AI-agent first hackathon platform."
+[auth]
+organizer = "Cookie: IdeaForge-Session=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcGVuSWQiOiJkb2dmb29kX29yZ2FuaXplcl8xNzkwNDc5NzQyMDQzIiwiYXBwSWQiOiJpZGVhZm9yZ2VfYXBwIiwibmFtZSI6Im9yZ2FuaXplciIsImV4cCI6MTgyMjAxNTc0Mn0.zcvon6mbqEgFUFTwzr35ODdrvbCeDgLtvimNf3f7SGw"
+judge_a = "Cookie: IdeaForge-Session=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcGVuSWQiOiJkb2dmb29kX2p1ZGdlX2FfMTc5MDQ3OTc0MjU1NSIsImFwcElkIjoiaWRlYWZvcmdlX2FwcCIsIm5hbWUiOiJqdWRnZV9hIiwiZXhwIjoxODIyMDE1NzQyfQ.ayF57VfQLsch8Vj5ujNEvlwj_2PxsGspwIJRc6vL9AA"
+judge_b = "Cookie: IdeaForge-Session=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcGVuSWQiOiJkb2dmb29kX2p1ZGdlX2JfMTc5MDQ3OTc0MjcxMiIsImFwcElkIjoiaWRlYWZvcmdlX2FwcCIsIm5hbWUiOiJqdWRnZV9iIiwiZXhwIjoxODIyMDE1NzQyfQ.orpj0ZiNl-QNXxVTc_4G1-BppyFCn8usCAv8DqnECP4"
+participant = "Cookie: IdeaForge-Session=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcGVuSWQiOiJkb2dmb29kX3BhcnRpY2lwYW50XzE3OTA0Nzk3NDI4NzQiLCJhcHBJZCI6ImlkZWFmb3JnZV9hcHAiLCJuYW1lIjoicGFydGljaXBhbnQiLCJleHAiOjE4MjIwMTU3NDN9.DYESNsYx4Dk-XB5UVBP1QY7LDHuAycAZOXwKR1gZzuM"
+[routes]
+gallery      = "/api/dogfood/gallery"
+submit       = "/api/dogfood/submit"
+judge_scores = "/api/dogfood/judge/dogfood_judge_a_1790479742555/scores"
+peer_scores  = "/api/dogfood/judge/dogfood_judge_a_1790479742555/scores"
+csv_export   = "/api/dogfood/export.csv"

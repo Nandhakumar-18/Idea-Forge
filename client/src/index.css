@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.8rem;
+  --primary: #2926a6;
+  --primary-foreground: #ffffff;
+  --secondary: #f2f2fa;
+  --secondary-foreground: #43445d;
+  --background: #f8f8fc;
+  --foreground: #20213d;
+  --card: #ffffff;
+  --card-foreground: #20213d;
+  --popover: #ffffff;
+  --popover-foreground: #20213d;
+  --muted: #f0f0f6;
+  --muted-foreground: #74758d;
+  --accent: #efefff;
+  --accent-foreground: #2926a6;
+  --destructive: #d64f66;
+  --destructive-foreground: #ffffff;
+  --border: #e8e8f1;
+  --input: #e6e6ef;
+  --ring: #756ff1;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #20213d;
+  --sidebar-primary: #2926a6;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #efefff;
+  --sidebar-accent-foreground: #2926a6;
+  --sidebar-border: #e8e8f1;
+  --sidebar-ring: #756ff1;
+}
+
+.dark {
+  --primary: #8e8aff;
+  --primary-foreground: #17173b;
+  --secondary: #272744;
+  --secondary-foreground: #e5e5f1;
+  --background: #151528;
+  --foreground: #f1f1fa;
+  --card: #1e1e36;
+  --card-foreground: #f1f1fa;
+  --popover: #1e1e36;
+  --popover-foreground: #f1f1fa;
+  --muted: #292943;
+  --muted-foreground: #a3a3bb;
+  --accent: #2c2b53;
+  --accent-foreground: #cbc9ff;
+  --border: #35354f;
+  --input: #35354f;
+  --ring: #8e8aff;
+  --sidebar: #1e1e36;
+  --sidebar-foreground: #f1f1fa;
+  --sidebar-primary: #8e8aff;
+  --sidebar-primary-foreground: #17173b;
+  --sidebar-accent: #2c2b53;
+  --sidebar-accent-foreground: #cbc9ff;
+  --sidebar-border: #35354f;
+  --sidebar-ring: #8e8aff;
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  html { scroll-behavior: smooth; }
+  body { @apply bg-background text-foreground; font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4, .font-display { font-family: 'Manrope', 'DM Sans', sans-serif; }
+  button:not(:disabled), [role="button"]:not([aria-disabled="true"]), [type="button"]:not(:disabled), [type="submit"]:not(:disabled), a[href], select:not(:disabled) { @apply cursor-pointer; }
+  ::selection { background: #dcdafe; color: #2422a7; }
+}
+
+@layer components {
+  .container { width: 100%; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
+  .flex { min-height: 0; min-width: 0; }
+  @media (min-width: 640px) { .container { padding-left: 1.5rem; padding-right: 1.5rem; } }
+  @media (min-width: 1024px) { .container { padding-left: 2rem; padding-right: 2rem; max-width: 1280px; } }
+  .surface-glass { background: rgba(255,255,255,.82); backdrop-filter: blur(16px); }
+  .fade-up { animation: fade-up .5s cubic-bezier(.23,1,.32,1) both; }
+  @keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+}
