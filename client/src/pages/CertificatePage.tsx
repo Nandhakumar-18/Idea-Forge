@@ -7,7 +7,7 @@ export default function CertificatePage() {
   const [match, params] = useRoute("/certificates/:code");
   const code = params?.code || "";
   const certificate = trpc.ideaForge.certificates.view.useQuery({ code }, { enabled: Boolean(match && code.length >= 8), retry: false });
-  if (certificate.isLoading) return <div className="px-5 py-24 text-center text-sm text-[#7b7c91]">Verifying certificate…</div>;
+  if (certificate.isLoading) return <div className="px-5 py-24 text-center text-sm text-[#7b7c91] dark:text-[#8888a3]">Verifying certificate…</div>;
   if (certificate.error || !certificate.data?.event) return <div className="mx-auto max-w-[600px] px-5 py-24 text-center"><p className="text-sm font-semibold text-[#53546f]">Certificate not found.</p><p className="mt-2 text-xs text-[#8b8c9d]">Check the code and try again.</p><Link href="/" className="mt-4 inline-block text-xs font-bold text-[#3936b4]">Return home</Link></div>;
   const { event, certificate: record, recipientName } = certificate.data;
   return <div className="mx-auto max-w-[1020px] px-5 pb-16 pt-8 print:max-w-none print:p-0"><div className="mb-5 flex items-center justify-between print:hidden"><Link href="/profile" className="inline-flex items-center gap-2 text-xs font-semibold text-[#75768b]"><ArrowLeft className="h-3.5 w-3.5" />Back to profile</Link><Button onClick={() => window.print()} variant="outline" className="rounded-xl border-[#dddcef] text-xs"><Printer className="mr-2 h-4 w-4" />Print / Save as PDF</Button></div>

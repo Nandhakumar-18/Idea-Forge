@@ -28,11 +28,11 @@ export function EventCard({ event, score, reasons, eligible, caution, compact = 
   const starts = new Date(event.startsAt);
   const dateLabel = deadline.toLocaleDateString("en", { month: "short", day: "numeric" });
   return (
-    <article className={`group relative overflow-hidden rounded-[22px] border border-[#e9e9f2] bg-white transition duration-200 hover:-translate-y-1 hover:border-[#cecdf8] hover:shadow-[0_16px_42px_rgba(35,35,80,.09)] ${compact ? "p-5" : "p-6"}`}>
+    <article className={`group relative overflow-hidden rounded-[22px] border border-[#e9e9f2] bg-white dark:bg-[#1e1e36] transition duration-200 hover:-translate-y-1 hover:border-[#cecdf8] hover:shadow-[0_16px_42px_rgba(35,35,80,.09)] ${compact ? "p-5" : "p-6"}`}>
       <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-[#625be9] via-[#9491ff] to-[#d3b6f9] opacity-70 transition-opacity group-hover:opacity-100" />
       <div className="flex items-start justify-between gap-3">
-        <span className="inline-flex items-center rounded-full bg-[#f0efff] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[.1em] text-[#4d49c5]">{event.domain}</span>
-        {score !== undefined && <span className="inline-flex items-center gap-1 rounded-full bg-[#eaf7f1] px-2.5 py-1.5 text-xs font-bold text-[#22845e]"><Sparkles className="h-3 w-3" />{score}% match</span>}
+        <span className="inline-flex items-center rounded-full bg-[#f0efff] dark:bg-[#2c2b53] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[.1em] text-[#4d49c5]">{event.domain}</span>
+        {score !== undefined && <span className="inline-flex items-center gap-1 rounded-full bg-[#eaf7f1] dark:bg-[#1e3d2f] px-2.5 py-1.5 text-xs font-bold text-[#22845e]"><Sparkles className="h-3 w-3" />{score}% match</span>}
       </div>
       <h3 className="mt-4 font-display text-[20px] font-extrabold leading-tight tracking-[-.035em] text-[#232440]">{event.title}</h3>
       <p className="mt-2 line-clamp-2 text-sm leading-6 text-[#77788e]">{event.tagline}</p>

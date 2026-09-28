@@ -23,15 +23,15 @@ export function LoginPage() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-[450px] flex-col items-center justify-center px-5 py-24">
-      <div className="w-full rounded-2xl border border-[#e8e8f1] bg-white p-8 shadow-[0_8px_26px_rgba(32,33,74,.04)]">
+      <div className="w-full rounded-2xl border border-[#e8e8f1] dark:border-[#35354f] bg-white dark:bg-[#1e1e36] p-8 shadow-[0_8px_26px_rgba(32,33,74,.04)]">
         <div className="mb-8 flex flex-col items-center text-center">
           <span className="grid h-12 w-12 place-items-center rounded-xl bg-[#2926a6] text-white">
             <Sparkles className="h-6 w-6" />
           </span>
-          <h1 className="mt-5 font-display text-2xl font-extrabold text-[#292a47]">
+          <h1 className="mt-5 font-display text-2xl font-extrabold text-[#292a47] dark:text-[#f1f1fa]">
             Dogfood Test Portal
           </h1>
-          <p className="mt-2 text-sm leading-6 text-[#7b7c91]">
+          <p className="mt-2 text-sm leading-6 text-[#7b7c91] dark:text-[#8888a3]">
             Authentication-as-a-service is disabled. Select a seeded test persona to instantly access the platform.
           </p>
         </div>
