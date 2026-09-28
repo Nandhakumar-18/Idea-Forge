@@ -340,12 +340,10 @@ const fetchWithBackoff = async (
 };
 
 export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
-  assertApiKey();
+  // Offline hackathon mode: Immediately throw to trigger local fallbacks 
+  // and guarantee 0 external API requests.
+  throw new Error("Offline Mode: LLM APIs disabled to comply with hackathon rules.");
 
-  const {
-    messages,
-    tools,
-    toolChoice,
     tool_choice,
     outputSchema,
     output_schema,

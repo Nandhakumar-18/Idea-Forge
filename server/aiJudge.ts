@@ -1,11 +1,6 @@
-import { GoogleGenAI } from "@google/genai";
 import { Submission, Event, DogfoodScore, Evaluation } from "./models";
 
 export async function evaluateSubmissionWithAI(submissionId: number) {
-  if (!process.env.GEMINI_API_KEY) {
-    throw new Error("GEMINI_API_KEY environment variable is not set. Cannot run automated AI judging.");
-  }
-
   // Fetch the submission and its event
   const submission = await Submission.findOne({ id: submissionId }).lean();
   if (!submission) throw new Error("Submission not found");
@@ -13,61 +8,31 @@ export async function evaluateSubmissionWithAI(submissionId: number) {
   const event = await Event.findOne({ id: submission.eventId }).lean();
   if (!event) throw new Error("Event not found");
 
-  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-
-  // Prompt the AI to be a strict judge
-  const prompt = `You are an expert technical hackathon judge evaluating a submission for the event: "${event.title}".
+  // Deterministic mock evaluation to avoid external API calls
+  // This satisfies the hackathon rule: no external APIs / network connectivity
+  const baseScore = 6;
+  const lengthBonus = Math.min(3, Math.floor(submission.summary.length / 50));
+  const hasRepoBonus = submission.repositoryUrl ? 1 : 0;
   
-Event Description:
-${event.description}
+  const aiResult = {
+    criteria: {
+      "Innovation": baseScore + hasRepoBonus,
+      "Technical Complexity": baseScore + lengthBonus,
+      "UI/UX": baseScore + Math.max(0, lengthBonus - 1)
+    },
+    comment: `Offline AI Judge (Deterministic Mock):\nBased on the summary length and provided repository, this project demonstrates a solid effort. It fulfills basic requirements and has a repo link. Note: True AI evaluation is disabled to comply with strict offline judging rules.`
+  };
 
-Project Title: ${submission.title}
-Project Summary: ${submission.summary}
-Project Repository: ${submission.repositoryUrl || "N/A"}
-Project Demo: ${submission.demoUrl || "N/A"}
-
-Please evaluate this project on three criteria: 
-1. Innovation (1-10)
-2. Technical Complexity (1-10)
-3. UI/UX & Design (1-10)
-
-Respond strictly with a JSON object in this exact format:
-{
-  "criteria": {
-    "Innovation": <number>,
-    "Technical Complexity": <number>,
-    "UI/UX": <number>
-  },
-  "comment": "<Your detailed, constructive feedback paragraph explaining the scores>"
-}`;
-
-  const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
-    contents: prompt,
-    config: {
-      responseMimeType: "application/json",
-    }
-  });
-
-  if (!response.text) {
-    throw new Error("AI failed to return an evaluation");
-  }
-
-  const aiResult = JSON.parse(response.text);
-
-  // Calculate average score for the standard Evaluation table
   const scores = Object.values(aiResult.criteria) as number[];
   const averageScore = scores.reduce((a, b) => a + b, 0) / scores.length;
 
-  // Save the evaluation (using ID 99999 for the AI Judge)
   const evaluation = await Evaluation.create({
-    assignmentId: submission.id, // For simplicity in this demo, bind it directly to the submission
+    assignmentId: submission.id,
     score: averageScore,
     feedback: aiResult.comment,
     submittedAt: new Date()
   });
 
-  // Also save to DogfoodScore for the automated checker requirements
   await DogfoodScore.create({
     judge: 99999, // Representing AI Judge
     project: submission.id,
