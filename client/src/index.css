@@ -70,6 +70,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   --primary: #8e8aff;
   --primary-foreground: #17173b;
   --secondary: #272744;

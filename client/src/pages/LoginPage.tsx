@@ -16,7 +16,7 @@ export function LoginPage() {
   });
 
   const demoUsers = [
-    { name: "participant", label: "Log in as Participant", desc: "Submit projects & vote", icon: Code2, color: "bg-[#2926a6]" },
+    { name: "participant", label: "Log in as Participant", desc: "Submit projects & vote", icon: Code2, color: "bg-[#2926a6] text-white" },
     { name: "judge_a", label: "Log in as Judge", desc: "Evaluate & score projects", icon: Trophy, color: "bg-[#514dc4]" },
     { name: "organizer", label: "Log in as Organizer", desc: "Manage event & judges", icon: Hammer, color: "bg-[#1f1d7d]" },
   ];
