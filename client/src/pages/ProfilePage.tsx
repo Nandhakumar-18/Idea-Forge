@@ -55,7 +55,7 @@ function OrganizerProfileView() {
               <span className="grid h-10 w-10 place-items-center rounded-xl bg-[#f0efff] dark:bg-[#2c2b53] text-[#5550ca]"><UsersRound className="h-5 w-5" /></span>
             </div>
             {profileQuery.isLoading ? <div className="mt-5 h-32 animate-pulse rounded-xl bg-[#f0f0f6] dark:bg-[#2c2b53]" /> : (
-              <form onSubmit={e => { e.preventDefault(); save.mutate({ organizationName: organizationName.trim() || undefined, website: website.trim() || undefined, bio: bio.trim() || undefined }); }} className="mt-5 grid gap-4 sm:grid-cols-2">
+              <form onSubmit={e => { e.preventDefault(); save.mutate({ organizationName: organizationName.trim() || "Default Org", websiteUrl: website.trim() || undefined, bio: bio.trim() || undefined }); }} className="mt-5 grid gap-4 sm:grid-cols-2">
                 <Field label="Organization Name"><input value={organizationName} onChange={e => setOrganizationName(e.target.value)} placeholder="e.g. NextGen Builders" maxLength={180} /></Field>
                 <Field label="Website"><input value={website} onChange={e => setWebsite(e.target.value)} placeholder="https://example.com" type="url" maxLength={255} /></Field>
                 <Field label="Bio / Description" wide><textarea value={bio} onChange={e => setBio(e.target.value)} rows={3} placeholder="Tell participants about your organization..." maxLength={1000} /></Field>

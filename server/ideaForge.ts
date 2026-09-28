@@ -240,6 +240,24 @@ function scoreEvent(event: any, intent: ReturnType<typeof fallbackIntent>, profi
 }
 
 export const ideaForgeRouter = router({
+  organizerProfile: router({
+    get: protectedProcedure.query(async ({ ctx }) => {
+      requireDb(await getDb());
+      let profile = await OrganizerProfile.findOne({ userId: ctx.user.id }).lean();
+      if (!profile) {
+        const newProfile = new OrganizerProfile({ userId: ctx.user.id, organizationName: ctx.user.name + "'s Org", bio: "", websiteUrl: "" });
+        await newProfile.save();
+        profile = await OrganizerProfile.findOne({ userId: ctx.user.id }).lean();
+      }
+      return profile;
+    }),
+    save: protectedProcedure.input(z.object({ organizationName: z.string().min(2).max(100), bio: z.string().max(500).optional(), websiteUrl: z.string().url().or(z.literal("")).optional() })).mutation(async ({ ctx, input }) => {
+      requireDb(await getDb());
+      await OrganizerProfile.updateOne({ userId: ctx.user.id }, { $set: { organizationName: input.organizationName, bio: input.bio, websiteUrl: input.websiteUrl } }, { upsert: true });
+      return { success: true };
+    }),
+  }),
+
   events: router({
     list: publicProcedure.input(z.object({ domain: z.string().optional(), format: z.enum(["online", "in-person", "hybrid"]).optional(), status: z.enum(["all", "open", "closed"]).optional(), studentOnly: z.boolean().optional() }).optional()).query(async ({ input }) => {
       await ensureDemoEvents();
