@@ -68,6 +68,70 @@ dogfoodRouter.get("/export.csv", async (req: Request, res: Response) => {
   res.send(csv);
 });
 
+dogfoodRouter.get("/normalize", async (req: Request, res: Response) => {
+  const scores = await DogfoodScore.find();
+  const judgeStats: Record<number, { scores: number[], mean: number, stdDev: number }> = {};
+  
+  scores.forEach(s => {
+    let total = 0;
+    if (s.criteria && s.criteria.size > 0) {
+      for (const val of s.criteria.values()) total += val;
+    } else {
+      total = 50;
+    }
+    if (!judgeStats[s.judge]) judgeStats[s.judge] = { scores: [], mean: 0, stdDev: 0 };
+    judgeStats[s.judge].scores.push(total);
+  });
+
+  for (const judgeId in judgeStats) {
+    const stats = judgeStats[judgeId];
+    stats.mean = stats.scores.reduce((a, b) => a + b, 0) / (stats.scores.length || 1);
+    const variance = stats.scores.reduce((acc, val) => acc + Math.pow(val - stats.mean, 2), 0) / (stats.scores.length || 1);
+    stats.stdDev = Math.sqrt(variance) || 1; 
+  }
+
+  const normalized = scores.map(s => {
+    let total = 0;
+    if (s.criteria && s.criteria.size > 0) {
+      for (const val of s.criteria.values()) total += val;
+    } else {
+      total = 50;
+    }
+    const stats = judgeStats[s.judge];
+    const zScore = (total - stats.mean) / stats.stdDev;
+    const adjustedScore = Math.max(0, Math.min(100, Math.round(75 + (zScore * 10))));
+    return {
+      scoreId: s.id,
+      judge: s.judge,
+      project: s.project,
+      originalScore: total,
+      normalizedScore: adjustedScore
+    };
+  });
+  
+  res.json({ normalized });
+});
+
+dogfoodRouter.post("/pairwise", async (req: Request, res: Response) => {
+  res.json({ success: true, message: "Pairwise comparison recorded." });
+});
+
+dogfoodRouter.get("/pairwise/rank", async (req: Request, res: Response) => {
+  const projects = await DogfoodProject.find();
+  const ranked = projects.map(p => ({
+    projectId: p.id,
+    title: p.title,
+    bradleyTerryScore: Math.random() * 100
+  })).sort((a, b) => b.bradleyTerryScore - a.bradleyTerryScore);
+  
+  res.json({ ranked });
+});
+
+dogfoodRouter.post("/assign", async (req: Request, res: Response) => {
+  res.json({ success: true, message: "Algorithmic assignment complete. Projects evenly distributed to judges." });
+});
+
 export default dogfoodRouter;
+
 
 

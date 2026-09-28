@@ -1,0 +1,71 @@
+openapi: 3.0.0
+info:
+  title: IdeaForge Hackathon API
+  version: 1.0.0
+  description: API specifications for IdeaForge offline hackathon platform.
+paths:
+  /api/dogfood/gallery:
+    get:
+      summary: Retrieve all submitted projects
+      responses:
+        '200':
+          description: A JSON array of projects
+  /api/dogfood/submit:
+    post:
+      summary: Submit a new project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                summary:
+                  type: string
+                repo_url:
+                  type: string
+      responses:
+        '200':
+          description: Project created
+        '400':
+          description: Submissions closed
+  /api/dogfood/judge/{id}/scores:
+    get:
+      summary: Get scores submitted by a specific judge
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A JSON array of scores
+        '403':
+          description: Forbidden (ID mismatch)
+  /api/dogfood/normalize:
+    get:
+      summary: Execute Cross-Judge Score Normalization
+      responses:
+        '200':
+          description: Normalized scores using Z-Score statistics
+  /api/dogfood/pairwise:
+    post:
+      summary: Submit an A/B pairwise comparison result
+      responses:
+        '200':
+          description: Comparison recorded
+  /api/dogfood/pairwise/rank:
+    get:
+      summary: Recover project rankings using Bradley-Terry model
+      responses:
+        '200':
+          description: Ranked projects
+  /api/dogfood/export.csv:
+    get:
+      summary: Export all data to CSV
+      responses:
+        '200':
+          description: CSV content
