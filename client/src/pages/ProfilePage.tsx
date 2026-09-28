@@ -3,6 +3,7 @@ import { ArrowRight, Award, BookOpenCheck, Check, ClipboardList, FileText, Link2
 import { toast } from "sonner";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { startLogin } from "@/const";
+import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 
