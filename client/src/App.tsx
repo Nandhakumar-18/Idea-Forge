@@ -4,10 +4,10 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { startLogin } from "@/const";
 import { useAuth } from "@/_core/hooks/useAuth";
 import NotFound from "@/pages/NotFound";
-import { ArrowUpRight, CircleUserRound, Hammer, LayoutDashboard, LogOut, Sparkles, Trophy } from "lucide-react";
+import { ArrowUpRight, CircleUserRound, Hammer, LayoutDashboard, LogOut, Sparkles, Trophy, Moon, Sun } from "lucide-react";
 import { Route, Switch, Link, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
-import { ThemeProvider } from "./contexts/ThemeContext";
+import { ThemeProvider, useTheme } from "./contexts/ThemeContext";
 
 const Home = lazy(() => import("@/pages/Home"));
 const Forge = lazy(() => import("@/pages/Forge"));
@@ -17,6 +17,17 @@ const OrganizerPage = lazy(() => import("@/pages/OrganizerPage"));
 const JudgePage = lazy(() => import("@/pages/JudgePage"));
 const CertificatePage = lazy(() => import("@/pages/CertificatePage"));
 const LoginPage = lazy(() => import("@/pages/LoginPage").then(m => ({ default: m.LoginPage })));
+
+function ThemeToggle() {
+  const { theme, toggleTheme, switchable } = useTheme();
+  if (!switchable || !toggleTheme) return null;
+  
+  return (
+    <button onClick={toggleTheme} aria-label="Toggle theme" className="grid h-10 w-10 place-items-center rounded-full text-[#82839a] hover:bg-[#f5f5fa] hover:text-[#373858] dark:hover:bg-[#2c2d4a] dark:text-[#a1a1b5] dark:hover:text-[#e4e4eb]">
+      {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+    </button>
+  );
+}
 
 function AppHeader() {
   const { user, isAuthenticated, logout } = useAuth();
@@ -52,6 +63,7 @@ function AppHeader() {
           })}
         </nav>
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           {isAuthenticated ? <>
             <Link href="/profile" className="flex items-center gap-2 rounded-full border border-[#e9e9f1] py-1 pl-1 pr-3 text-sm font-semibold text-[#34354f] hover:bg-[#fafaff]"><span className="grid h-8 w-8 place-items-center rounded-full bg-[#eeedff] text-[#302daf]"><CircleUserRound className="h-4 w-4" /></span><span className="hidden max-w-[120px] truncate sm:block">{user?.name || "My profile"}</span></Link>
             <button onClick={logout} aria-label="Sign out" className="grid h-10 w-10 place-items-center rounded-full text-[#82839a] hover:bg-[#f5f5fa] hover:text-[#373858]"><LogOut className="h-4 w-4" /></button>
@@ -84,5 +96,5 @@ function AppRouter() {
 }
 
 export default function App() {
-  return <ErrorBoundary><ThemeProvider defaultTheme="light"><TooltipProvider><Toaster /><AppRouter /></TooltipProvider></ThemeProvider></ErrorBoundary>;
+  return <ErrorBoundary><ThemeProvider defaultTheme="light" switchable><TooltipProvider><Toaster /><AppRouter /></TooltipProvider></ThemeProvider></ErrorBoundary>;
 }
