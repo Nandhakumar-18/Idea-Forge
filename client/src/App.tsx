@@ -32,6 +32,9 @@ function ThemeToggle() {
 function AppHeader() {
   const { user, isAuthenticated, logout } = useAuth();
   const [location] = useLocation();
+
+  if (location === "/login") return null;
+
   const links = [];
   if (user?.role === "organizer") {
     links.push({ href: "/events", label: "Explore events", icon: LayoutDashboard });
