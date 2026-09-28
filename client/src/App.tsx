@@ -16,6 +16,7 @@ const ProfilePage = lazy(() => import("@/pages/ProfilePage"));
 const OrganizerPage = lazy(() => import("@/pages/OrganizerPage"));
 const JudgePage = lazy(() => import("@/pages/JudgePage"));
 const CertificatePage = lazy(() => import("@/pages/CertificatePage"));
+const LoginPage = lazy(() => import("@/pages/LoginPage").then(m => ({ default: m.LoginPage })));
 
 function AppHeader() {
   const { user, isAuthenticated, logout } = useAuth();
@@ -67,6 +68,7 @@ function AppRouter() {
     <Route path="/profile" component={ProfilePage} />
     <Route path="/organizer" component={OrganizerPage} />
     <Route path="/judge" component={JudgePage} />
+    <Route path="/login" component={LoginPage} />
     <Route path="/certificates/:code" component={CertificatePage} />
     <Route path="/404" component={NotFound} />
     <Route component={NotFound} />

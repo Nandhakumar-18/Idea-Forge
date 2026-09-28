@@ -13,29 +13,6 @@ export { COOKIE_NAME, ONE_YEAR_MS } from "@shared/const";
 // with "invalid oauth state". It returns void by design, so there is no URL to
 // stash across renders.
 export const startLogin = () => {
-  const oauthPortalUrl = import.meta.env.VITE_OAUTH_PORTAL_URL;
-  if (!oauthPortalUrl) {
-    console.warn("VITE_OAUTH_PORTAL_URL is missing. Using local mock login.");
-    window.location.href = "/api/oauth/mock";
-    return;
-  }
-  const appId = import.meta.env.VITE_APP_ID || "demo-app-id";
-  const redirectUri = `${window.location.origin}/api/oauth/callback`;
-
-  const nonce = crypto.randomUUID();
-  document.cookie = `${OAUTH_STATE_COOKIE}=${nonce}; Path=/; Max-Age=600; SameSite=None; Secure`;
-  const state = encodeOAuthState({ redirectUri, nonce });
-
-  try {
-    const url = new URL(`${oauthPortalUrl}/app-auth`);
-    url.searchParams.set("appId", appId);
-    url.searchParams.set("redirectUri", redirectUri);
-    url.searchParams.set("state", state);
-    url.searchParams.set("type", "signIn");
-
-    window.location.href = url.toString();
-  } catch (err) {
-    console.error("Failed to construct OAuth URL:", err);
-    alert("Login configuration is missing. Please check your .env file.");
-  }
+  window.location.href = "/login";
 };
+
