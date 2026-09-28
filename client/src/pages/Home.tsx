@@ -1,11 +1,13 @@
 import { ArrowRight, ArrowUpRight, BrainCircuit, CalendarDays, ChevronRight, Compass, GraduationCap, HeartPulse, Lightbulb, ShieldCheck, Sparkles, WandSparkles } from "lucide-react";
 import { useState } from "react";
-import { useLocation, Link } from "wouter";
+import { useAuth } from "@/_core/hooks/useAuth";
+import { useLocation, Link, Redirect } from "wouter";
 import { Button } from "@/components/ui/button";
 import { EventCard } from "@/components/EventCard";
 import { trpc } from "@/lib/trpc";
 
 export default function Home() {
+  const { user } = useAuth();
   const [prompt, setPrompt] = useState("");
   const [, setLocation] = useLocation();
   const eventsQuery = trpc.ideaForge.events.list.useQuery(undefined, { retry: 1 });
@@ -14,6 +16,9 @@ export default function Home() {
     if (value.trim()) sessionStorage.setItem("ideaforge:first-prompt", value.trim());
     setLocation("/forge");
   };
+  
+  if (user?.role === "organizer") return <Redirect to="/events" />;
+  
   return <div className="overflow-hidden bg-[#f8f8fc] dark:bg-[#20213d]">
     <section className="relative mx-auto max-w-[1440px] px-5 pb-12 pt-14 lg:px-10 lg:pb-16 lg:pt-[76px]">
       <div className="pointer-events-none absolute -right-28 top-0 h-[500px] w-[640px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(157,151,255,.18),rgba(255,255,255,0)_65%)]" />

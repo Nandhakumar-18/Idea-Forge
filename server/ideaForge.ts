@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
 import { z } from "zod";
-import { Certificate, Evaluation, EventRound, Event, JudgeAssignment, Registration, StudentProfile, Submission, TeamMember, Team, User } from "./models";
+import { Certificate, Evaluation, EventRound, Event, JudgeAssignment, Registration, StudentProfile, OrganizerProfile, Submission, TeamMember, Team, User } from "./models";
 import { invokeLLM, listLLMModels } from "./_core/llm";
 import { getDb } from "./db";
 import { protectedProcedure, publicProcedure, router } from "./_core/trpc";

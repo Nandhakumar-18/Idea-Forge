@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, CheckCircle2, CircleHelp, Compass, FileSearch, MessageCircle, Sparkles, UserRound, WandSparkles } from "lucide-react";
-import { Link } from "wouter";
+import { Link, Redirect } from "wouter";
 import { AIChatBox, type Message } from "@/components/AIChatBox";
 import { EventCard } from "@/components/EventCard";
 import { Button } from "@/components/ui/button";
@@ -16,8 +16,10 @@ export default function Forge() {
   const [intent, setIntent] = useState<{ domains: string[]; skills: string[]; format: string; teamSize: number; freeOnly: boolean } | null>(null);
   const [lastPrompt, setLastPrompt] = useState("");
   const seeded = useRef(false);
-  const { isAuthenticated } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const recommend = trpc.ideaForge.discovery.recommend.useMutation();
+
+  if (user?.role === "organizer") return <Redirect to="/events" />;
 
   useEffect(() => {
     if (seeded.current) return;
