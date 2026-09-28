@@ -68,7 +68,7 @@ function AppHeader() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           {isAuthenticated ? <>
-            <Link href="/profile" className="flex items-center gap-2 rounded-full border border-[#e9e9f1] dark:border-[#35354f] py-1 pl-1 pr-3 text-sm font-semibold text-[#34354f] dark:text-[#f1f1fa] hover:bg-[#fafaff] dark:hover:bg-[#292943]"><span className="grid h-8 w-8 place-items-center rounded-full bg-[#eeedff] text-[#302daf] dark:text-[#8e8aff]"><CircleUserRound className="h-4 w-4" /></span><span className="hidden max-w-[120px] truncate sm:block">{user?.name || "My profile"}</span></Link>
+            <Link href="/profile" className="flex items-center gap-2 rounded-full border border-[#e9e9f1] dark:border-[#35354f] py-1 pl-1 pr-3 text-sm font-semibold text-[#34354f] dark:text-[#f1f1fa] hover:bg-[#fafaff] dark:hover:bg-[#292943]"><span className="grid h-8 w-8 place-items-center rounded-full bg-[#eeedff] dark:bg-[#2c2b53] text-[#302daf] dark:text-[#8e8aff]"><CircleUserRound className="h-4 w-4" /></span><span className="hidden max-w-[120px] truncate sm:block">{user?.name || "My profile"}</span></Link>
             <button onClick={logout} aria-label="Sign out" className="grid h-10 w-10 place-items-center rounded-full text-[#82839a] hover:bg-[#f5f5fa] dark:hover:bg-[#292943] hover:text-[#373858] dark:hover:text-[#f1f1fa]"><LogOut className="h-4 w-4" /></button>
           </> : <button onClick={() => startLogin()} className="inline-flex items-center gap-2 rounded-full bg-[#2422a7] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_7px_18px_rgba(36,34,167,.18)] transition hover:-translate-y-0.5 hover:bg-[#191782]">Get started <ArrowUpRight className="h-4 w-4" /></button>}
         </div>
