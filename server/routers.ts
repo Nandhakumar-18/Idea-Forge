@@ -11,15 +11,21 @@ export const appRouter = router({
   ideaForge: ideaForgeRouter,
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
-    demoLogin: publicProcedure.input(z.object({ username: z.string() })).mutation(async ({ input, ctx }) => {
+    demoLogin: publicProcedure.input(z.object({ username: z.string(), isJudgeEmail: z.boolean().optional() })).mutation(async ({ input, ctx }) => {
       const { sdk } = await import("./_core/sdk");
       const { User } = await import("./models");
       const { ONE_YEAR_MS } = await import("@shared/const");
 
-      let user = await User.findOne({ name: input.username });
-      if (!user) {
-         const role = input.username === "organizer" ? "organizer" : input.username.startsWith("judge") ? "judge" : "user";
-         user = await User.create({ openId: `dogfood_${input.username}_${Date.now()}`, name: input.username, role });
+      let user;
+      if (input.isJudgeEmail) {
+         user = await User.findOne({ email: input.username, role: "judge" });
+         if (!user) throw new Error("Judge email not found. Please ask the organizer to invite you.");
+      } else {
+         user = await User.findOne({ name: input.username });
+         if (!user) {
+            const role = input.username === "organizer" ? "organizer" : input.username.startsWith("judge") ? "judge" : "user";
+            user = await User.create({ openId: `dogfood_${input.username}_${Date.now()}`, name: input.username, role });
+         }
       }
 
       const token = await sdk.createSessionToken(user.openId, { name: user.name, expiresInMs: ONE_YEAR_MS });

@@ -41,7 +41,17 @@ export function LoginPage() {
             <Button
               key={u.name}
               disabled={loginMutation.isPending}
-              onClick={() => loginMutation.mutate({ username: u.name })}
+              onClick={() => {
+                if (u.name === "judge_a") {
+                  const email = window.prompt("Enter your registered Judge email:");
+                  if (!email) return;
+                  loginMutation.mutate({ username: email, isJudgeEmail: true }, {
+                    onError: (err) => alert(err.message)
+                  });
+                } else {
+                  loginMutation.mutate({ username: u.name });
+                }
+              }}
               className={`flex h-16 w-full items-center justify-between rounded-xl ${u.color} px-5 font-bold text-white transition-opacity hover:opacity-90`}
             >
               <div className="flex items-center gap-4">

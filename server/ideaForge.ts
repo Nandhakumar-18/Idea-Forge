@@ -448,6 +448,25 @@ export const ideaForgeRouter = router({
     }),
   }),
   judging: router({
+    inviteJudge: protectedProcedure.input(z.object({ email: z.string().email() })).mutation(async ({ ctx, input }) => {
+      if (ctx.user.role !== "organizer" && ctx.user.role !== "admin") {
+        throw new TRPCError({ code: "FORBIDDEN", message: "Only organizers can invite judges." });
+      }
+      const { User } = await import("./models");
+      let user = await User.findOne({ email: input.email });
+      if (!user) {
+        const name = input.email.split("@")[0];
+        await User.create({
+           openId: `invited_judge_${Date.now()}`,
+           name,
+           email: input.email,
+           role: "judge"
+        });
+      } else if (user.role !== "judge" && user.role !== "organizer" && user.role !== "admin") {
+        await User.updateOne({ _id: user._id }, { $set: { role: "judge" } });
+      }
+      return { success: true };
+    }),
     evaluateWithAI: protectedProcedure.input(z.object({ submissionId: z.number().int().positive() })).mutation(async ({ ctx, input }) => {
       if (ctx.user.role !== "admin" && ctx.user.role !== "organizer") {
         throw new TRPCError({ code: "FORBIDDEN", message: "Only organizers can trigger AI evaluation." });

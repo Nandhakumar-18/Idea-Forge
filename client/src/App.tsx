@@ -21,12 +21,20 @@ const LoginPage = lazy(() => import("@/pages/LoginPage").then(m => ({ default: m
 function AppHeader() {
   const { user, isAuthenticated, logout } = useAuth();
   const [location] = useLocation();
-  const links = [
-    { href: "/forge", label: "AI discovery", icon: Sparkles },
-    { href: "/events", label: "Explore events", icon: LayoutDashboard },
-    { href: "/organizer", label: "Organizer studio", icon: Hammer },
-    { href: "/judge", label: "Judging", icon: Trophy },
-  ];
+  const links = [];
+  if (user?.role === "organizer") {
+    links.push({ href: "/events", label: "Explore events", icon: LayoutDashboard });
+    links.push({ href: "/organizer", label: "Organizer studio", icon: Hammer });
+  } else if (user?.role === "judge") {
+    links.push({ href: "/events", label: "Explore events", icon: LayoutDashboard });
+    links.push({ href: "/judge", label: "Judging", icon: Trophy });
+  } else {
+    links.push({ href: "/forge", label: "AI discovery", icon: Sparkles });
+    links.push({ href: "/events", label: "Explore events", icon: LayoutDashboard });
+    if (isAuthenticated) {
+      links.push({ href: "/profile", label: "My Profile & Results", icon: CircleUserRound });
+    }
+  }
   return (
     <header className="sticky top-0 z-40 border-b border-white/70 bg-white/85 backdrop-blur-xl">
       <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 lg:px-10">
