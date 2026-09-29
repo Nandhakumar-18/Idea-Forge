@@ -95,7 +95,7 @@ function AppRouter() {
     <Route path="/certificates/:code" component={CertificatePage} />
     <Route path="/404" component={NotFound} />
     <Route component={NotFound} />
-  </Switch></Suspense></main><footer className="border-t border-[#ededf4] dark:border-[#35354f] bg-white dark:bg-[#1e1e36]"><div className="mx-auto flex max-w-[1440px] flex-col justify-between gap-3 px-5 py-6 text-xs text-[#8b8ca0] sm:flex-row sm:items-center lg:px-10"><span>© 2026 IdeaForge.io · The right challenge can change everything.</span><span className="flex items-center gap-1.5">Built for builders <span className="text-[#6c66ed]">●</span> Grounded in real event data</span></div></footer></>;
+  </Switch></Suspense></main><footer className="border-t border-[#ededf4] dark:border-[#35354f] bg-white dark:bg-[#1e1e36]"><div className="mx-auto flex max-w-[1440px] flex-col justify-between gap-3 px-5 py-6 text-xs text-[#8b8ca0] sm:flex-row sm:items-center lg:px-10"><span>© 2026 Idea Forge · The right challenge can change everything.</span><span className="flex items-center gap-1.5">Built for builders <span className="text-[#6c66ed]">●</span> Grounded in real event data</span></div></footer></>;
 }
 
 export default function App() {

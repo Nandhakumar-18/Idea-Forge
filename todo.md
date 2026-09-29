@@ -1,4 +1,4 @@
-# IdeaForge.io MVP — Feature and Bug Tracker
+# Idea Forge MVP — Feature and Bug Tracker
 
 Updated: 2026-09-26
 
