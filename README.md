@@ -29,7 +29,7 @@
 
 ---
 
-## 🚀 Local Deployment (DOGFOOD Evaluation)
+## 🚀 Local Deployment
 
 This project strictly adheres to the DOGFOOD offline/local evaluation constraints. It requires **zero cloud accounts**, **no external authentication-as-a-service**, and **no hosted databases**.
 
@@ -57,7 +57,7 @@ The portal will be live at: 👉 **[http://localhost:3000](http://localhost:3000
 
 ---
 
-## 🧪 Testing the UI (Dogfood Portal)
+## 🧪 Testing the UI
 
 We have bypassed standard email/password authentication to make hackathon evaluation absolutely seamless. 
 
