@@ -33,25 +33,27 @@
 
 This project strictly adheres to the DOGFOOD offline/local evaluation constraints. It requires **zero cloud accounts**, **no external authentication-as-a-service**, and **no hosted databases**.
 
-### Prerequisites
-- Docker & Docker Compose installed on your machine.
+### Option 1: Docker (Required for Hackathon Judges)
+The hackathon evaluation machines are pre-configured to run Docker containers. Open your terminal in the root of the project directory and run:
 
-### One-Command Startup
-Open your terminal in the root of the project directory and run:
-
-```bash
+\\\ash
 docker-compose up --build
-```
+\\\
 
 **What this does:**
-1. Spins up a local, containerized **MongoDB** instance.
-2. Builds and bundles the full-stack Node.js/React application using Vite.
-3. Automatically runs database seeders to populate the platform with sample events, users, and tracks.
-4. Generates the required `.dogfood.toml` file for automated endpoint checking.
+1. Spins up a local, offline **MongoDB** container.
+2. Builds and bundles the Node.js/React application using Vite.
+3. Automatically runs database seeders and generates the \.dogfood.toml\ file for the automated checking tool.
+4. The portal will be live at: 👉 **[http://localhost:8080](http://localhost:8080)**
 
-### Accessing the Platform
-Once the container finishes building, the portal will be live at:
-👉 **[http://localhost:8080](http://localhost:8080)**
+### Option 2: Standard Node.js (For Teammates without Docker)
+If you do not have Docker installed on your local computer, you can run the application directly using standard web development commands. *(Note: This requires a .env file with a valid DATABASE_URL pointing to a MongoDB instance).*
+
+\\\ash
+pnpm install
+pnpm dev
+\\\
+The portal will be live at: 👉 **[http://localhost:3000](http://localhost:3000)**
 
 ---
 
@@ -64,7 +66,7 @@ We have bypassed standard email/password authentication to make hackathon evalua
 3. Select the persona you want to test:
    - **Participant:** Instantly logs you into a student builder profile.
    - **Organizer:** Instantly logs you in with full event-creation and judging-assignment capabilities.
-   - **Judge:** When prompted, enter `judge@example.com` to log in as the pre-seeded test judge.
+   - **Judge:** When prompted, enter \judge@example.com\ to log in as the pre-seeded test judge.
 4. The system will securely log you in via a local, HTTP-only JWT session cookie.
 
 ---
@@ -72,7 +74,7 @@ We have bypassed standard email/password authentication to make hackathon evalua
 ## 🏗️ Architecture & Tech Stack
 - **Frontend:** React 19, Wouter (Routing), Tailwind CSS (Full Native Dark Mode), Lucide Icons.
 - **Backend:** Node.js, Express, **tRPC** (for End-to-End type safety without REST APIs).
-- **Database:** MongoDB (via Mongoose), running entirely locally in Docker.
+- **Database:** MongoDB (via Mongoose).
 
 ---
 
