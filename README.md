@@ -39,15 +39,15 @@ This project strictly adheres to the DOGFOOD offline/local evaluation constraint
 ### One-Command Startup
 Open your terminal in the root of the project directory and run:
 
-\\\ash
+```bash
 docker-compose up --build
-\\\
+```
 
 **What this does:**
 1. Spins up a local, containerized **MongoDB** instance.
 2. Builds and bundles the full-stack Node.js/React application using Vite.
 3. Automatically runs database seeders to populate the platform with sample events, users, and tracks.
-4. Generates the required \.dogfood.toml\ file for automated endpoint checking.
+4. Generates the required `.dogfood.toml` file for automated endpoint checking.
 
 ### Accessing the Platform
 Once the container finishes building, the portal will be live at:
@@ -64,7 +64,7 @@ We have bypassed standard email/password authentication to make hackathon evalua
 3. Select the persona you want to test:
    - **Participant:** Instantly logs you into a student builder profile.
    - **Organizer:** Instantly logs you in with full event-creation and judging-assignment capabilities.
-   - **Judge:** When prompted, enter \judge@example.com\ to log in as the pre-seeded test judge.
+   - **Judge:** When prompted, enter `judge@example.com` to log in as the pre-seeded test judge.
 4. The system will securely log you in via a local, HTTP-only JWT session cookie.
 
 ---
