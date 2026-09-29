@@ -56,7 +56,7 @@ function AppHeader() {
           <span className="grid h-10 w-10 place-items-center rounded-[14px] bg-[#2422a7] text-white shadow-[0_8px_18px_rgba(36,34,167,.22)] transition-transform group-hover:-rotate-3">
             <Hammer className="h-5 w-5" strokeWidth={2.2} />
           </span>
-          <span className="leading-tight"><span className="block text-[16px] font-extrabold tracking-[-.04em] text-[#17183c] dark:text-[#f1f1fa]">IdeaForge<span className="text-[#6e67ef]">.io</span></span><span className="block text-[10px] font-semibold tracking-[.13em] text-[#898a9f] dark:text-[#8888a3]">BUILD WHAT MATTERS</span></span>
+          <span className="leading-tight"><span className="block text-[16px] font-extrabold tracking-[-.04em] text-[#17183c] dark:text-[#f1f1fa]">Idea Forge</span><span className="block text-[10px] font-semibold tracking-[.13em] text-[#898a9f] dark:text-[#8888a3]">BUILD WHAT MATTERS</span></span>
         </Link>
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
           {links.map(item => {
